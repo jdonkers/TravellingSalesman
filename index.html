@@ -1,0 +1,55 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<title>Travelling Salesman</title>
+		<script src="lib/angular.min.js"></script>	
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="lib/bootstrap.min.js"></script>	
+
+
+		<script src="js/mathUtil.js"></script>	 		
+		<script src="js/canvasUtil.js"></script>				
+		<script src="js/solutions.js"></script>	 				
+		<script src="js/controllers.js"></script> 
+
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/style.css" rel="stylesheet" media="screen">
+	</head>
+	<body>		
+		<div style="margin-left:auto;margin-right:auto;width:800px;" ng-app>
+			<div class="header">
+				<h3>Travelling Salesman</h3>
+			</div>
+		
+			<div ng-controller="MainCtrl">		
+			
+			<div>
+				<form ng-submit="addCity()" style="margin-right:10px;float:left;">
+					<input ng-model="x" placeholder="X" required type="number" min="0" max="600" style="margin:0px;width:50px;">
+					<input ng-model="y" placeholder="Y" required type="number" min="0" max="400" style="margin:0px;width:50px;">
+					<input class="btn" type="submit" value="Add point">			
+				</form>						
+				<div class="btn" ng-click="addRandom()">Add random</div>
+			</div>
+				
+			<canvas id="canvas" style="border: 1px gray solid; float: left; margin-top: -10px;"></canvas>
+				
+			<div style="margin-left: 615px; float; left">
+				<h4>Cities</h4>		
+				<div ng-repeat="city in cities">
+					<span class="label label-info" style="width:75px;" ng-click="selectCity(city)">{{city.id}}. [{{city.x}}, {{city.y}}] </span>					
+					<span class="label label-default" ng-click="removeCity(city)">X</span>
+				</div>			
+			</div>
+			<div style="clear: both"/>
+		
+			<br />
+				<select style="float:left;" data-ng-options="a.name for a in algorithms" data-ng-model="selectedAlgorithm"></select>
+				
+				<form ng-submit="solve()" style="margin-bottom:12px;">
+					<input style="margin-left: 5px;" class="btn" type="submit" value="Solve">				
+				</form>
+				Total Distance: {{totalDistance}}
+		</div>
+	</body>
+</html>
